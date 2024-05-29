@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
 
     // Prepare a SQL statement to retrieve user based on email and password
-    $sql = "SELECT * FROM `user` WHERE `email` = ? AND `password` = ?";
+    $sql = "SELECT nom, prenom FROM `user` WHERE `email` = ? AND `password` = ?";
     
     if ($stmt = mysqli_prepare($link, $sql)) {
         // Bind variables to the prepared statement as parameters
@@ -21,14 +21,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // Check if a user with the provided email and password exists
             if (mysqli_stmt_num_rows($stmt) == 1) {
+                // Bind the result variables
+                mysqli_stmt_bind_result($stmt, $nom, $prenom);
+                mysqli_stmt_fetch($stmt);
+
                 // Start session
                 session_start();
                 
                 // Set session variables
                 $_SESSION["loggedin"] = true;
+                $_SESSION["email"] = $email;
+                $_SESSION["nom"] = $nom;
+                $_SESSION["prenom"] = $prenom;
                 
                 // Redirect to dashboard
-                header("Location: dashboard.php");
+                header("Location: admin/dashboard.php");
                 exit;
             } else {
                 // User authentication failed, redirect back to the login page with an error message

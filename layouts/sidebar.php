@@ -19,7 +19,7 @@
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="../admin/adherent_list.php">Liste</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="#">Ajouter</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../admin/adherent_add.php">Ajouter</a></li>
                 </ul>
               </div>
             </li>
